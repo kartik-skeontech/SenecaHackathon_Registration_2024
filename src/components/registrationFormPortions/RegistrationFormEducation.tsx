@@ -23,7 +23,7 @@ function RegistrationFormEducation() {
           id="institution"
           name="institution"
           label="College/University"
-          placeholder="Seneca College"
+          placeholder="Seneca Polytechnic"
           setVariable={setInstitution}
           variable={institution}
           defaultValue=""
@@ -64,7 +64,7 @@ function RegistrationFormEducation() {
           defaultValue={2024}
           sx={{ marginRight: 1 }}
           max={2030}
-          min={2021}
+          min={1967}
         />
       </Box>
     </Box>

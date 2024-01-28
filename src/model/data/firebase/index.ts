@@ -28,6 +28,8 @@ export const createParticipant = async (participant: IRegistrationForm) => {
           firstName: member.firstName,
           lastName: member.lastName,
           institute: member.institute,
+          email: member.email,
+          swagSize: member.swagSize,
         })),
       },
       cell_phone: participant.cellPhone,
@@ -37,9 +39,11 @@ export const createParticipant = async (participant: IRegistrationForm) => {
       participate_as: participant.registrationType,
       challenge: participant.challengeName,
       finaleJoinPreference: participant.finaleJoinPreference,
+      alumini: participant.alumini,
+      aluminiYear: participant.aluminiYear,
+      aluminiProgram: participant.aluminiProgram,
     });
-    console.log("Participant created with ID:", docRef.id);
-    console.log("Participant created with Data:", docRef)
+
     return docRef.id;
   } catch (error) {
     console.error("Error adding document: ", error);
@@ -53,7 +57,6 @@ export const updateParticipant = async (
   try {
     const docRef = doc(db, "Participants", participantId);
     await updateDoc(docRef, participantData);
-    console.log("Participant updated with ID:", participantId);
   } catch (error) {
     console.error("Error updating document: ", error);
   }
@@ -63,7 +66,6 @@ export const removeParticipant = async (participantId: string) => {
   try {
     const docRef = doc(db, "Participants", participantId);
     await deleteDoc(docRef);
-    console.log("Participant deleted with ID:", participantId);
   } catch (error) {
     console.error("Error deleting document: ", error);
   }
@@ -76,10 +78,8 @@ export const getParticipant = async (
     const docRef = doc(db, "Participants", participantId);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
-      console.log("Participant data:", docSnap.data());
       return docSnap.data() as IParticipant;
     } else {
-      console.log("No participant found!");
       return undefined;
     }
   } catch (error) {
@@ -90,13 +90,13 @@ export const getParticipant = async (
 export const getAllParticipants = async (): Promise<IParticipant[]> => {
   try {
     const querySnapshot = await getDocs(collection(db, "Participants"));
-    console.log(
-      "All participants:",
-      querySnapshot.docs.map((doc) => doc.data())
-    );
+    
     const participants = querySnapshot.docs.map((doc) => {
       return { ...doc.data() } as IParticipant;
     });
+
+    console.log("participants", participants);
+
     return participants;
   } catch (err) {
     console.error("Error fetching participants:", err);

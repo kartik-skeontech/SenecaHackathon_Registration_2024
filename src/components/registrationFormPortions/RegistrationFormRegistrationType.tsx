@@ -2,49 +2,54 @@ import { Box } from "@mui/material";
 import CustomFormLabel from "../utils/CustomFormLabel";
 import FormRadioGroup from "../utils/FormRadioGroup";
 import FormSelect from "../utils/FormSelect";
+import FormNumberField from "../utils/FormNumberField";
 import React from "react";
-import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
+
 import { useAtom } from "jotai";
 import {
   isTeamCompleteAtom,
-  challengeNameAtom,
+  //challengeNameAtom,
   tShirtSizeAtom,
   registrationTypeAtom,
   teamNameAtom,
   senecaStatusAtom,
-  finaleJoinPreferenceAtom,
+  //finaleJoinPreferenceAtom,
   pastHackathonParticipationAtom,
   numberOfTeamMembersAtom,
   teamMembersAtom,
-
+  senecaAlumniAtom,
+  senecaAlumniYearAtom,
+  senecaAlumniProgramAtom,
 } from "../../atoms/FormAtoms";
 import {
   ShirtSizes,
   RegisType,
-  Challenge,
+  //Challenge,
   isTeamCompleteList,
   senecaStudentStatus,
-  Preference,
+  //Preference,
   pastHackathonParticipationList,
+  isAluminieList,
 } from "../../interface/type";
 import FormTextField from "../utils/FormTextField";
 
 function RegistrationFormRegistrationType() {
   const [isTeamComplete, setIsTeamComplete] = useAtom(isTeamCompleteAtom);
-  const [challengeName, setChallengeName] = useAtom(challengeNameAtom);
+  //const [challengeName, setChallengeName] = useAtom(challengeNameAtom);
   const [tShirtSize, setTShirtSize] = useAtom(tShirtSizeAtom);
   const [registrationType, setRegistrationType] = useAtom(registrationTypeAtom);
   const [teamName, setTeamName] = useAtom(teamNameAtom);
   const [senecaStatus, setSenecaStatus] = useAtom(senecaStatusAtom);
-  const [finaleJoinPreference, setFinaleJoinPreference] = useAtom(
-    finaleJoinPreferenceAtom
-  );
+  //const [finaleJoinPreference, setFinaleJoinPreference] = useAtom(
+  //  finaleJoinPreferenceAtom
+  // );
   const [pastHackathonParticipation, setPastHackathonParticipation] = useAtom(
     pastHackathonParticipationAtom
   );
-
+  const [senecaAlumini, setSenecaAlumini] = useAtom(senecaAlumniAtom);
+  const [aluminiYear, setAluminiYear] = useAtom(senecaAlumniYearAtom);
+  const [aluminiProgram, setAluminiProgram] = useAtom(senecaAlumniProgramAtom);
   const [teamMembers, setTeamMembers] = useAtom(teamMembersAtom);
-
   const [numberOfTeamMembers, setNumberOfTeamMembers] = useAtom(
     numberOfTeamMembersAtom
   );
@@ -69,22 +74,47 @@ function RegistrationFormRegistrationType() {
     setTeamMembers(updatedTeamMembers);
   };
 
-  const handleRemovePerson = (index: Number) => {
-    const updatedTeamMembers = teamMembers.filter((_, i) => i !== index);
-    setTeamMembers(updatedTeamMembers);
-
-    if (updatedTeamMembers.length < parseInt(numberOfTeamMembers, 10)) {
-      setNumberOfTeamMembers(updatedTeamMembers.length.toString());
-    }
-  };
-
   return (
     <Box sx={{ marginTop: 6 }}>
       <CustomFormLabel>Event-related Information</CustomFormLabel>
       <Box sx={{ marginLeft: 4, marginTop: 3 }}>
         <FormRadioGroup
+          id="isAlumini"
+          label="Are you a Seneca Graduate?"
+          labelId="senecaAlumini"
+          variable={senecaAlumini}
+          setVariable={setSenecaAlumini}
+          valueList={isAluminieList}
+          defaultValue=""
+          sx={{ marginRight: 1 }}
+        />
+        {senecaAlumini == "Yes" && (
+          <>
+            <FormNumberField
+              id="aluminiGraduationYear"
+              name="aluminiGraduationYear"
+              label="Graduation Year"
+              placeholder="2019"
+              setVariable={setAluminiYear}
+              variable={aluminiYear}
+              defaultValue=""
+              sx={{ marginRight: 1 }}
+            />
+            <FormTextField
+              id="aluminiProgram"
+              name="aluminiProgram"
+              label="Program name"
+              placeholder="Computer Programming and Analysis"
+              setVariable={setAluminiProgram}
+              variable={aluminiProgram}
+              defaultValue=""
+              sx={{ marginRight: 1 }}
+            />
+          </>
+        )}
+        <FormRadioGroup
           id="pastHackathonParticipation"
-          label="Have you participated in any Seneca hackathon before?"
+          label="Have you participated in any of the previous Seneca Hackathon events?"
           labelId="senecaStatus"
           variable={pastHackathonParticipation}
           setVariable={setPastHackathonParticipation}
@@ -94,7 +124,7 @@ function RegistrationFormRegistrationType() {
         />
         <FormRadioGroup
           id="registrationType"
-          label="Registration Type"
+          label="Do you have a team?"
           labelId="registrationType"
           variable={registrationType}
           setVariable={setRegistrationType}
@@ -102,7 +132,7 @@ function RegistrationFormRegistrationType() {
           defaultValue=""
           sx={{ marginRight: 1 }}
         />
-        {registrationType == "Team" && (
+        {registrationType == "Yes" && (
           <>
             <FormTextField
               id="teamName"
@@ -187,15 +217,31 @@ function RegistrationFormRegistrationType() {
                     variable={member.institute}
                     defaultValue=""
                   />
-                  {teamMembers.length > 1 && (
-                    <button
-                      type="button"
-                      onClick={() => handleRemovePerson(index)}
-                      className="relative ml-3 mt-9 sm:absolute md:ml-0 sm:mt-0 sm:top-1/2 sm:-translate-y-1/2"
-                    >
-                      <PersonRemoveIcon />
-                    </button>
-                  )}
+                  <FormTextField
+                    id={`email-${index}`}
+                    name="email"
+                    label="Email"
+                    placeholder="Email of your team member"
+                    setVariable={(value: any) =>
+                      handleTeamMemberChange(index, "email", value)
+                    }
+                    variable={member.email}
+                    defaultValue=""
+                    sx={{ marginRight: 1 }}
+                  />
+                  <FormSelect
+                    id={`swagSize-${index}`}
+                    label="SWAG Size"
+                    formLabel="Select your apparel size? *"
+                    labelId={`swagSizeLabel-${index}`}
+                    variable={member.swagSize}
+                    setVariable={(value: any) =>
+                      handleTeamMemberChange(index, "swagSize", value)
+                    }
+                    valueList={ShirtSizes}
+                    defaultValue=""
+                    sx={{ marginRight: 1 }}
+                  />
                 </div>
               ))}
             </div>
@@ -222,9 +268,11 @@ function RegistrationFormRegistrationType() {
             />
           </>
         )}
+        {/*
         <FormSelect
           label="Challenge Set"
           labelId="challengeName"
+          formLabel="Select your preferred challenge set? *"
           variable={challengeName}
           setVariable={setChallengeName}
           valueList={Challenge}
@@ -232,20 +280,23 @@ function RegistrationFormRegistrationType() {
           sx={{ marginRight: 1 }}
           id="challengeName"
         />
-        <FormRadioGroup
-          label="How would you like to join the finale?"
+ <FormRadioGroup
+          label="How would you like to join the finale? "
           labelId="finaleJoinPreference"
           variable={finaleJoinPreference}
           setVariable={setFinaleJoinPreference}
           valueList={Preference}
           defaultValue=""
-          sx={{ marginRight: 1 }}
+          sx={{ marginRight: 1, position: "relative", left: 0 }}
           id="finaleJoinPreference"
         />
+        */}
+
         <FormSelect
           id="swagSize"
           label="SWAG Size"
           labelId="swagSize"
+          formLabel="Select your apparel size? *"
           variable={tShirtSize}
           setVariable={setTShirtSize}
           valueList={ShirtSizes}

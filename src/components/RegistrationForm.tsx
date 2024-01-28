@@ -7,6 +7,8 @@ import RegistrationFormPersonalInformation from "./registrationFormPortions/Regi
 import RegistrationFormEducation from "./registrationFormPortions/RegistrationFormEducation";
 import RegistrationFormRegistrationType from "./registrationFormPortions/RegistrationFormRegistrationType";
 import { Registration } from "../model/registration";
+import { sendEmailConfirmation } from "./SendConfirmation/EmailConfirmation";
+import ReCAPTCHA from "react-google-recaptcha";
 import { useAtom } from "jotai";
 import {
   firstNameAtom,
@@ -26,6 +28,9 @@ import {
   pastHackathonParticipationAtom,
   finaleJoinPreferenceAtom,
   cellPhoneAtom,
+  senecaAlumniAtom,
+  senecaAlumniYearAtom,
+  senecaAlumniProgramAtom,
 } from "../atoms/FormAtoms";
 import { useNavigate } from "react-router-dom";
 
@@ -49,14 +54,18 @@ function RegistrationForm() {
   const [finaleJoinPreference] = useAtom(finaleJoinPreferenceAtom);
   const [teamMembers] = useAtom(teamMembersAtom);
   const [isSubmitted, setIsSubmitted] = React.useState(false);
+  const [alumini] = useAtom(senecaAlumniAtom);
+  const [aluminiYear] = useAtom(senecaAlumniYearAtom);
+  const [aluminiProgram] = useAtom(senecaAlumniProgramAtom);
+  const [isReCAPVerified, setIsReCAPVerified] = React.useState(false);
+
+  const onReCAPTCHAChange = (value: any) =>
+    setIsReCAPVerified(value ? true : false);
 
   const navigate = useNavigate();
 
-  // Functionalities
-
   const getCurrentDateInCanada = () => {
     const date = new Date();
-    // 'America/Toronto' for Eastern Time
     return date.toLocaleString("en-CA", { timeZone: "America/Toronto" });
   };
 
@@ -71,21 +80,20 @@ function RegistrationForm() {
       program &&
       collegeName &&
       registrationType &&
-      challengeName &&
       semester &&
       graduationYear &&
       pastHackathonParticipation &&
-      finaleJoinPreference &&
+      isReCAPVerified &&
       cellPhone
     ) {
       if (
-        registrationType === "Team" &&
+        registrationType === "Yes" &&
         teamName &&
         isTeamComplete &&
         senecaStatus
       ) {
         return true;
-      } else if (registrationType === "Individual") {
+      } else if (registrationType === "No") {
         return true;
       }
     }
@@ -115,10 +123,24 @@ function RegistrationForm() {
       finaleJoinPreference: finaleJoinPreference,
       cellPhone: cellPhone,
       registrationAtDate: registeratDateCA,
+      alumini: alumini,
+      aluminiYear: aluminiYear,
+      aluminiProgram: aluminiProgram,
     });
-    const userId = await participant.submitForm();
-    navigate(`/success/${userId}`);
-    setIsSubmitted(true);
+
+    const userId: any = await participant.submitForm();
+
+    const checkStatusEmailSend: any = await sendEmailConfirmation(
+      email,
+      firstName
+    );
+
+    if (checkStatusEmailSend.status === "success") {
+      navigate(`/success/${userId}`);
+      setIsSubmitted(true);
+    } else {
+      console.error("Email sending failed:", checkStatusEmailSend.data);
+    }
   };
 
   return (
@@ -137,6 +159,12 @@ function RegistrationForm() {
 
       <RegistrationFormRegistrationType />
 
+      <Box sx={{ display: "flex", justifyContent: "center", marginY: 2 }}>
+        <ReCAPTCHA
+          sitekey="6Lc18VgpAAAAADE5aFI8Y7gUl7gIL10fGj-VoiRi"
+          onChange={onReCAPTCHAChange}
+        />
+      </Box>
       {/* Button set */}
       <Box
         sx={{

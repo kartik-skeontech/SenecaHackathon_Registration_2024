@@ -16,16 +16,21 @@ export class Registration implements IRegistrationForm {
       firstName: string;
       lastName: string;
       institute: string;
+      email?: string;
+      swagSize?: string;
     }>;
   };
   challengeName: string;
-  isTeamCompleted: boolean;
+  isTeamCompleted: string;
   semester: number;
   graduationYear: number;
   senecaStudentStatus: string;
   pastHackathonParticipation: boolean;
   finaleJoinPreference: string;
   cellPhone: string;
+  alumini: string;
+  aluminiYear?: number;
+  aluminiProgram?: string;
 
   constructor(formInput: IRegistrationForm) {
     this.firstName = formInput.firstName || "";
@@ -38,7 +43,7 @@ export class Registration implements IRegistrationForm {
     this.registrationType = formInput.registrationType || "";
     this.team = formInput.team || { teamName: "", teamMembers: [] };
     this.challengeName = formInput.challengeName || "";
-    this.isTeamCompleted = formInput.isTeamCompleted || false;
+    this.isTeamCompleted = formInput.isTeamCompleted || "No";
     this.semester = formInput.semester || 0;
     this.graduationYear = formInput.graduationYear || 0;
     this.senecaStudentStatus = formInput.senecaStudentStatus || "";
@@ -46,6 +51,9 @@ export class Registration implements IRegistrationForm {
       formInput.pastHackathonParticipation || false;
     this.finaleJoinPreference = formInput.finaleJoinPreference || "";
     this.cellPhone = formInput.cellPhone || "";
+    this.alumini = formInput.alumini || "";
+    this.aluminiYear = formInput.aluminiYear || 0;
+    this.aluminiProgram = formInput.aluminiProgram || "";
   }
   async submitForm() {
     if (this !== undefined) {

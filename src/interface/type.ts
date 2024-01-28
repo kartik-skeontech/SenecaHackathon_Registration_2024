@@ -13,16 +13,21 @@ export interface IRegistrationForm {
       firstName: string;
       lastName: string;
       institute: string;
+      email?: string;
+      swagSize?: string;
     }>;
   };
   challengeName: string;
-  isTeamCompleted?: boolean;
+  isTeamCompleted?: string;
   semester?: number;
   graduationYear?: number;
   senecaStudentStatus: string;
   pastHackathonParticipation: boolean;
   finaleJoinPreference: string;
   cellPhone: string;
+  alumini: string;
+  aluminiYear?: number;
+  aluminiProgram?: string;
 }
 
 export interface IParticipant {
@@ -43,19 +48,25 @@ export interface IParticipant {
       firstName: string;
       lastName: string;
       institute: string;
+      email?: string;
+      swagSize?: string;
     }>;
   };
   tshirt_size: string;
   college: string;
+  alumini: string;
+  aluminiYear?: number;
+  aluminiProgram?: string;
+  challenge: string;
 }
 
-export const RegisType = ["Team", "Individual"];
+export const RegisType = ["Yes", "No"];
 
 export const Challenge = ["Challenge1", "Challenge2", "Chellenge3"];
 
 export const DiscoveryMethod = ["Social Media", "Seneca", "Other"];
 
-export const Preference = ["Virtual", "In-person", "Maybe"];
+export const Preference = ["Virtual", "In-person"];
 
 export const ShirtSizes = ["XS", "S", "M", "L", "XL", "XXL"];
 
@@ -66,6 +77,8 @@ export const isTeamCompleteList = ["Yes", "No"];
 export const senecaStudentStatus = ["Yes", "No"];
 
 export const pastHackathonParticipationList = ["Yes", "No"];
+
+export const isAluminieList = ["Yes", "No"];
 
 export interface ChallengeSet {
   name: string;
