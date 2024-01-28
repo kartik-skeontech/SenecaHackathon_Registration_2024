@@ -6,7 +6,7 @@ By default it will display team name and team members and their College.
 
 import React from "react";
 import { IParticipant } from "../../../src/interface/type";
-import PersonIcon from '@mui/icons-material/Person';
+import PersonIcon from "@mui/icons-material/Person";
 
 type TeamCardProps = {
   team: IParticipant["team"];
