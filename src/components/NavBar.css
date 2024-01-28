@@ -1,11 +1,3 @@
-.navBarTop {
-  background-color: #D92D27;
-  width: 100%;
-  right: 0;
-  justify-content: right;
-  display: flex;
-  padding: 0.25em;
-}
 
 .navBarBody {
   background-color: whitesmoke;

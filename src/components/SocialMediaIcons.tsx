@@ -1,4 +1,3 @@
-import Box from "@mui/material/Box";
 import Facebook from "../assets/icons/facebook.png";
 import Instagram from "../assets/icons/instagram.png";
 import LinkedIn from "../assets/icons/linkedin.png";

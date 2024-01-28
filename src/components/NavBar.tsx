@@ -6,15 +6,12 @@ import HackathonLogo from "../assets/images/hack-logo.png";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useState } from "react";
 import {
-  Container,
-  CssBaseline,
   IconButton,
   List,
   ListItem,
   ListItemButton,
   ListItemText,
 } from "@mui/material";
-import { Col, Row } from "react-bootstrap";
 import Button from "@mui/material/Button";
 import Drawer from "@mui/material/Drawer";
 
@@ -50,7 +47,7 @@ function NavBar() {
             <a
               onClick={handleDrawerToggle}
               key={item}
-              className="nav-link"
+              className="no-underline text-black"
               href={
                 "https://seneca-hackathon2024.vercel.app/" +
                 convertToUrlFormat(item)
@@ -82,10 +79,9 @@ function NavBar() {
   );
 
   return (
-    <Box sx={{ display: "flex" }}>
-      <CssBaseline />
+    <Box sx={{ flexGrow: 1 }}>
       <AppBar
-        position="sticky"
+        position="static"
         sx={{
           backgroundColor: "white",
           color: "black",
@@ -95,77 +91,54 @@ function NavBar() {
           paddingBottom: "0.5em",
         }}
       >
-        <div className="navBarTop">
+        <div className="w-full bg-primary flex justify-end p-0.5">
           <SocialMediaIcons />
         </div>
         <Toolbar>
-          <Box sx={{ display: { sm: "none" } }}>
-            <a
-              href="https://seneca-hackathon2024.vercel.app/"
-              className="nav-link"
-            >
-              <img
-                src={HackathonLogo}
-                alt="Seneca Hackathon 2024's logo"
-                width={225}
-                height={50}
-              />
-            </a>
-          </Box>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ marginLeft: "auto", display: { sm: "none" } }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Box className="w-full" sx={{ display: { xs: "none", sm: "block" } }}>
-            <Container>
-              <Row>
-                <Col sm="auto" style={{ margin: "0.5em" }}>
-                  <a
-                    href="https://seneca-hackathon2024.vercel.app/"
-                    className="nav-link"
-                  >
-                    <img
-                      src={HackathonLogo}
-                      alt="Seneca Hackathon 2024's logo"
-                      width={375}
-                      height={70}
-                    />
-                  </a>
-                </Col>
-                <Col
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "right",
-                    whiteSpace: "nowrap",
-                  }}
+          <Box className="w-full flex sm:justify-around sm:flex-wrap pt-2">
+            <Box>
+              <a href="https://www.senecahackathon.com" target="_blank">
+                <img
+                  src={HackathonLogo}
+                  alt="Seneca Hackathon 2024's logo"
+                  className="w-4/5"
+                />
+              </a>
+            </Box>
+            <Box className="flex justify-center items-center">
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                edge="start"
+                onClick={handleDrawerToggle}
+                sx={{ marginLeft: "auto" }}
+                className="inline sm:hidden"
+              >
+                <MenuIcon />
+              </IconButton>
+            </Box>
+
+            <Box className=" hidden sm:flex">
+              {navItems.map((item) => (
+                <a
+                  key={item}
+                  className=" no-underline"
+                  style={{ display: "flex" }}
+                  href={
+                    "https://seneca-hackathon2024.vercel.app/" +
+                    convertToUrlFormat(item)
+                  }
                 >
-                  {navItems.map((item) => (
-                    <a
-                      key={item}
-                      className="nav-link"
-                      style={{ display: "flex" }}
-                      href={
-                        "https://seneca-hackathon2024.vercel.app/" +
-                        convertToUrlFormat(item)
-                      }
-                    >
-                      <Button key={item} sx={{ color: "black" }}>
-                        {item}
-                      </Button>
-                    </a>
-                  ))}
-                </Col>
-              </Row>
-            </Container>
+                  <Button key={item} sx={{ color: "black", fontWeight: "400" }}>
+                    {item}
+                  </Button>
+                </a>
+              ))}
+            </Box>
           </Box>
         </Toolbar>
       </AppBar>
+
       <nav>
         <Drawer
           className="flex flex-col"
