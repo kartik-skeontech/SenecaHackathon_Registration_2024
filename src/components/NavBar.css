@@ -1,5 +1,5 @@
 .navBarTop {
-  background-color: red;
+  background-color: #D92D27;
   width: 100%;
   right: 0;
   justify-content: right;
@@ -8,7 +8,7 @@
 }
 
 .navBarBody {
-  background-color: white;
+  background-color: whitesmoke;
 }
 
 .hosted-by {
