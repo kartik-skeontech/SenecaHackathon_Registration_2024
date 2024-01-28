@@ -26,6 +26,7 @@ function NavBar() {
     //"Gallery",
     "FAQ",
   ];
+  // copy paste file
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleDrawerToggle = () => {
