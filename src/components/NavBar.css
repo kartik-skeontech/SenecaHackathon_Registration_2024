@@ -1,14 +1,6 @@
-.navBarTop {
-  background-color: red;
-  width: 100%;
-  right: 0;
-  justify-content: right;
-  display: flex;
-  padding: 0.25em;
-}
 
 .navBarBody {
-  background-color: white;
+  background-color: whitesmoke;
 }
 
 .hosted-by {

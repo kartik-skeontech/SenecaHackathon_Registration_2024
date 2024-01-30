@@ -22,12 +22,13 @@ export const themeOptions: ThemeOptions = {
       fontSize: '3.1rem',
     },
     h2: {
-      fontWeight: 600,
-      fontSize: '2.5rem',
+      fontWeight: 400,
+      fontSize: '2.2rem',
+      marginBottom: '2.5rem',
     },
     h3: {
       fontWeight: 600,
-      fontSize: '1.2rem',
+      fontSize: '1.5rem',
     },
     subtitle2: {
       fontSize: '0.9rem',
