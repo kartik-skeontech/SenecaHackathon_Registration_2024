@@ -1,0 +1,15 @@
+#footer {
+    width: 100%;
+    height: fit-content;
+    padding: 1.5em 1em;
+    background-color: #D92D27;
+    color: white;
+    justify-content: center;
+    position: relative;
+    bottom: 0;
+  }
+  
+  #footer h3 {
+    font-size: larger;
+  }
+  

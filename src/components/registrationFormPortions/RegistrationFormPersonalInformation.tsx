@@ -16,7 +16,6 @@ function RegistrationFormPersonalInformation() {
   const [firstName, setFirstName] = useAtom(firstNameAtom);
   const [phoneNumber, setPhoneNumber] = useAtom(cellPhoneAtom);
   const [email, setEmail] = useAtom(emailAtom);
-
   return (
     <Box sx={{ marginTop: 6 }}>
       <div className="flex" style={{ alignItems: "center" }}>
