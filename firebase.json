@@ -10,5 +10,8 @@
         "firebase-debug.*.log"
       ]
     }
-  ]
+  ],
+  "extensions": {
+    "firestore-send-email": "firebase/firestore-send-email@0.1.31"
+  }
 }
