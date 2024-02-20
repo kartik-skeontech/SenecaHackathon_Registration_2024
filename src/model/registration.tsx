@@ -3,6 +3,7 @@ import {
   createParticipant,
   isEmailExist,
   isPhoneExist,
+  sendRegistrationEmail,
 } from "./data/firebase/index";
 
 export class Registration implements IRegistrationForm {
@@ -76,6 +77,7 @@ export class Registration implements IRegistrationForm {
         }
         const result = await createParticipant(this);
         if (result) {
+          await sendRegistrationEmail(this);
           return result;
         }
       } catch (err) {
@@ -84,3 +86,7 @@ export class Registration implements IRegistrationForm {
     }
   }
 }
+
+/*
+ 
+*/
