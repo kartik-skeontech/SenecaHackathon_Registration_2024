@@ -1,8 +1,17 @@
 const collegeList = {
   province: [
+    
     {
       "College/University Name":
-        "A1 Global College of Health, Business & Technology",
+        "Panyapiwat Insititue",
+    },
+    {
+      "College/University Name":
+        "University of Rosario",
+    },
+    {
+      "College/University Name":
+        "WCC World Citi Colleges",
     },
     {
       "College/University Name": "ABM College of Health & Technology",
