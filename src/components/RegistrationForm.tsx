@@ -64,11 +64,11 @@ function RegistrationForm() {
   const [pastHackathonParticipation] = useAtom(pastHackathonParticipationAtom);
   const [finaleJoinPreference] = useAtom(finaleJoinPreferenceAtom);
   const [teamMembers] = useAtom(teamMembersAtom);
-  const [isSubmitted, setIsSubmitted] = React.useState(false);
+  //const [setIsSubmitted] = React.useState(false);
   const [alumini] = useAtom(senecaAlumniAtom);
   const [aluminiYear] = useAtom(senecaAlumniYearAtom);
   const [aluminiProgram] = useAtom(senecaAlumniProgramAtom);
-  const [isReCAPVerified, setIsReCAPVerified] = React.useState(false);
+  //const [setIsReCAPVerified] = React.useState(false);
   const [doYouFollowUsOnSocialMedia] = useAtom(doYouFollowUsOnSocialMediaAtom);
 
   const handlePersonalEmailChange = async (newEmail: string) => {
@@ -141,8 +141,8 @@ function RegistrationForm() {
     setEmailError("");
   }, [email]);
 
-  const onReCAPTCHAChange = (value: any) =>
-    setIsReCAPVerified(value ? true : false);
+  // const onReCAPTCHAChange = (value: any) =>
+  // setIsReCAPVerified(value ? true : false);
 
   const navigate = useNavigate();
 
@@ -153,6 +153,7 @@ function RegistrationForm() {
 
   const registeratDateCA = getCurrentDateInCanada();
 
+  /*
   const isFormFilled = () => {
     if (
       firstName &&
@@ -185,9 +186,11 @@ function RegistrationForm() {
     return false;
   };
 
+  */
+
   const onSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    setIsSubmitted(true);
+   // setIsSubmitted(true);
 
     try {
       const participant = new Registration({
@@ -221,12 +224,12 @@ function RegistrationForm() {
 
       if (userId) {
         navigate(`/success/${userId}`);
-        setIsSubmitted(true);
+        //setIsSubmitted(true);
       } else {
         throw new Error("Form submission failed");
       }
     } catch (err: any) {
-      setIsSubmitted(false);
+      //setIsSubmitted(false);
       console.log(err);
 
       if (err instanceof Error) {
@@ -274,7 +277,7 @@ function RegistrationForm() {
       <Box sx={{ display: "flex", justifyContent: "center", marginY: 5 }}>
         <ReCAPTCHA
           sitekey="6Lc18VgpAAAAADE5aFI8Y7gUl7gIL10fGj-VoiRi"
-          onChange={onReCAPTCHAChange}
+          //onChange={onReCAPTCHAChange}
         />
       </Box>
 
@@ -291,9 +294,9 @@ function RegistrationForm() {
           variant="contained"
           type="submit"
           sx={{ width: "30%" }}
-          disabled={!isFormFilled() || isSubmitted}
+          disabled={true}
         >
-          Submit
+          Registration Closed
         </Button>
       </Box>
     </Container>
