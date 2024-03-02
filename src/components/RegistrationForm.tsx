@@ -291,7 +291,7 @@ function RegistrationForm() {
           variant="contained"
           type="submit"
           sx={{ width: "30%" }}
-          disabled={!isFormFilled() || isSubmitted}
+          disabled={true}
         >
           Submit
         </Button>
